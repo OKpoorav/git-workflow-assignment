@@ -1,63 +1,82 @@
-GIT COMMANDS USED IN THIS ASSIGNMENT
-====================================
+My command log - Git workflow assignment (project folder: git-assignment)
+-------------------------------------------------------------------------
+Every command below was typed by me while doing this assignment, in roughly
+the order I used them. Next to each one is a short note on why I needed it.
 
-1. git init -b main
-   Creates a new empty Git repository in the current folder, with "main" as the default branch.
+[Setting up]
+git init -b main
+  -> Turned my plain folder into a repo. I passed -b main so the first branch
+     is called "main" and not "master".
 
-2. git status
-   Shows which files are untracked, modified, or staged for the next commit.
+git status
+  -> I ran this many times just to check where I was: which files Git was not
+     tracking yet, what was modified and what was ready to commit.
 
-3. git add <file>   (e.g. git add index.html about.html)
-   Stages the given file(s) so their current content goes into the next commit.
+[Saving work]
+git add index.html about.html
+  -> Put my two HTML pages in the staging area so they would go into commit #1.
 
-4. git commit -m "<message>"
-   Records the staged changes as a new commit in the history with a descriptive message.
+git commit -m "..."
+  -> Saved a snapshot. Message for each snapshot says what I changed.
 
-5. git commit -am "<message>"
-   Stages all modified tracked files and commits them in one step.
+git commit -am "..."
+  -> Shortcut I used once: it stages every already-tracked file I edited and
+     commits it, so no separate git add was needed.
 
-6. git diff
-   Shows line-by-line changes in the working directory that are not yet staged.
+git diff
+  -> Before my 2nd commit I used this to see the exact line I added to
+     index.html (the green + line).
 
-7. git branch feature
-   Creates a new branch named "feature" pointing at the current commit.
+[Branching]
+git branch feature
+  -> Made a new branch called feature starting at my latest main commit.
 
-8. git branch
-   Lists all local branches; the current branch is marked with *.
+git branch
+  -> Printed my branches; the star told me I was on feature.
 
-9. git switch feature   /   git switch main
-   Moves HEAD to the named branch and updates the working files to match it.
+git switch feature / git switch main
+  -> Jumped between branches. My files on disk changed to match the branch.
 
-10. git merge --no-ff feature -m "<message>"
-    Merges the feature branch into the current branch (main); --no-ff always creates a merge commit so the branch activity stays visible in history.
+git merge --no-ff feature -m "..."
+  -> While on main, pulled the about.html change from feature into main.
+     --no-ff forces a real merge commit so the fork is visible in the graph.
 
-11. git log --oneline --graph --all --decorate
-    Displays the full commit history of all branches as a compact graph with branch labels.
+[Looking at history]
+git log --oneline --graph --all --decorate
+  -> My favourite one: every commit on one line, the branch fork drawn with
+     | and \ symbols, plus labels showing where main and feature point.
 
-12. git log --oneline -3
-    Shows only the last 3 commits, one line each.
+git log --oneline -3
+  -> Same idea but only the newest 3 commits, handy before and after undoing.
 
-13. cat .gitignore
-    Prints the .gitignore file, which tells Git to ignore *.log files and the temp/ folder.
+[Ignoring files]
+cat .gitignore
+  -> Printed my ignore rules: *.log (any log file) and temp/ (whole folder).
 
-14. git status --ignored
-    Shows the files Git is ignoring (app.log and temp/), proving .gitignore works.
+git status --ignored
+  -> Proof that the rules work: app.log and temp/ are listed as ignored.
 
-15. git reset --hard HEAD~1
-    Undoes the last commit: moves the branch back one commit and discards that commit's changes (used for local, unpushed commits).
+[Undoing]
+git reset --hard HEAD~1
+  -> Threw away my last (local, not pushed) commit. HEAD~1 means "one commit
+     before now". --hard also wipes that change from the files.
 
-16. git revert --no-edit HEAD
-    Undoes the last commit safely by creating a new commit with the opposite changes; history is kept, so it is safe for pushed/shared branches.
+git revert --no-edit HEAD
+  -> The safer undo. Instead of deleting history it adds a new commit that
+     reverses the previous one, so it can be used after pushing.
 
-17. gh repo create <name> --public --source=. --remote=origin
-    Creates a new public repository on GitHub (after the local repo already exists) and adds it as the remote "origin".
-    (Equivalent without the GitHub CLI: create the empty repo on github.com, then run "git remote add origin <URL>".)
+[GitHub]
+gh repo create git-workflow-assignment --public --source=. --remote=origin
+  -> Used the GitHub CLI to make a public repo on my account from this local
+     folder and link it under the name origin. (Same as making an empty repo
+     on github.com and then running git remote add origin <url>.)
 
-18. git remote -v
-    Lists the configured remote repositories and their URLs to confirm the connection.
+git remote -v
+  -> Double-checked that origin points to my GitHub repo URL.
 
-19. git push -u origin main
-    Uploads the main branch and its full history to GitHub and sets origin/main as its upstream.
+git push -u origin main
+  -> Sent main and all its commits to GitHub. -u remembers origin/main so a
+     plain "git push" works next time.
 
-20. git push origin feature
-    Uploads the feature branch to GitHub so the branch is visible there too.
+git push origin feature
+  -> Also uploaded the feature branch so it shows up on GitHub.
